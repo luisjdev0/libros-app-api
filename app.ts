@@ -6,7 +6,7 @@ dotenv.config()
 import { Request, Response } from 'express'
 import { createServer } from 'http'
 import bodyParser from 'body-parser'
-import { auth } from './modules/helpers'
+import { AuthAPIMiddleware } from './modules/helpers'
 
 import { routes as V1 } from './V1/endpoints'
 import { routes as V2 } from './V2/endpoints'
@@ -21,12 +21,22 @@ const cache = apicache.middleware
 app.use(cors({ methods: ['GET'] }))
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(AuthAPIMiddleware)
 app.use(cache('3 hours'))
-app.use(auth)
 const routes = [...V1, ...V2]
 
 routes.forEach(e => {
-    app.get(e.path, (req: Request, res: Response) => e.method(req, res))
+    app.get(e.path, async (req: Request, res: Response) => {
+        try {
+            await e.method(req, res)
+        } catch (e) {
+            res.status(500).json({
+                status: 500,
+                message: 'Internal server error',
+                error: e
+            })
+        }
+    })
 })
 
 app.all('*', (req: Request, res: Response) => {
