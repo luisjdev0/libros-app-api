@@ -40,9 +40,9 @@ def getRequest(uri, check_status = False):
 def saveBook(book : Book):
     connection = connector.connect(
         host = 'localhost',
-        user = 'libros_app_user',
-        password = 'libros_admin',
-        database = 'libros_app'
+        user = 'your_user',
+        password = 'your_password',
+        database = 'your_db_name'
     )
 
     cursor = connection.cursor()

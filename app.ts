@@ -1,11 +1,13 @@
 import express from 'express'
 import apicache from 'apicache'
 import dotenv from 'dotenv'
-dotenv.config()
+import { resolve } from 'path'
+dotenv.config({
+    path: resolve(__dirname, '.env')
+})
 
 import { Request, Response } from 'express'
 import { createServer } from 'http'
-import bodyParser from 'body-parser'
 import { AuthAPIMiddleware } from './modules/helpers'
 
 import { routes as V1 } from './V1/endpoints'
@@ -20,9 +22,8 @@ const cache = apicache.middleware
 
 app.use(cors({ methods: ['GET'] }))
 app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(AuthAPIMiddleware)
-app.use(cache('3 hours'))
+//app.use(cache('3 hours'))
 const routes = [...V1, ...V2]
 
 routes.forEach(e => {
