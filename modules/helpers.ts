@@ -1,6 +1,7 @@
 import md5 from 'md5'
-import { Request, Response, NextFunction } from "express"
+import type { Request, Response, NextFunction } from "express"
 import jwt from 'jsonwebtoken'
+import { Book } from './book'
 
 const mysql = require('mysql2/promise')
 
@@ -65,4 +66,11 @@ export const parseBook = (books: Array<any>) => {
         }
         return partial
     })
+}
+
+export const parseBookV3 = (books: Array<any> | any) => {
+    if (!Array.isArray(books)) {
+        return Book.fromObject(books).toObject()
+    }
+    return books.map((e: any) => Book.fromObject(e).toObject())
 }

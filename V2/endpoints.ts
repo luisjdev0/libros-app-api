@@ -1,5 +1,4 @@
-import apicache from 'apicache'
-import { Request, Response } from 'express'
+import type { Request, Response } from 'express'
 import { parseBook, query, response } from '../modules/helpers'
 import { routes as V1, getAllTags, getAllAuthors } from '../V1/endpoints'
 
@@ -37,7 +36,7 @@ const getStats = async () => {
     const authors = (await getAllAuthors()).length
     const genres = (await getAllTags()).length
     return {
-        books, authors, genres, performance: apicache.getPerformance()
+        books, authors, genres
     }
 }
 
@@ -52,25 +51,25 @@ export const routes = [
     {
         path: '/v2/search/author/:author',
         method: async (req : Request, res : Response) => {
-            res.json(response(200, req.params, await getBooksByAuthor(req.params.author)))
+            res.json(response(200, req.params, await getBooksByAuthor(req.params.author!)))
         }
     },
     {
         path: '/v2/search/genres/:genre',
         method: async (req : Request, res : Response) => {
-            res.json(response(200, req.params, await getBooksByGenre(req.params.genre)))
+            res.json(response(200, req.params, await getBooksByGenre(req.params.genre!)))
         }
     },
     {
         path: '/v2/authors/:author',
         method: async (req : Request, res : Response) => {
-            res.json(response(200, req.params, await findAuthor(req.params.author)))
+            res.json(response(200, req.params, await findAuthor(req.params.author!)))
         }
     },
     {
         path: '/v2/tags/:genre',
         method: async (req : Request, res : Response) => {
-            res.json(response(200, req.params, await findGenre(req.params.genre)))
+            res.json(response(200, req.params, await findGenre(req.params.genre!)))
         }
     },
     {

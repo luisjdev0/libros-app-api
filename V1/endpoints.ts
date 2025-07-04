@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import type { Request, Response } from "express"
 import { query, response, parseBook } from '../modules/helpers'
 
 
@@ -42,13 +42,13 @@ export const routes = [
     {
         path: '/page/:page',
         method: async (req : Request, res : Response) => {
-            res.json(response(200, req.params, await getBooksByPage(req.params.page)))
+            res.json(response(200, req.params, await getBooksByPage(req.params.page!)))
         }
     },
     {
         path: '/id/:id',
         method: async (req : Request, res : Response) => {
-            res.json(response(200, req.params, await getBookByID(req.params.id)))
+            res.json(response(200, req.params, await getBookByID(req.params.id!)))
         }
     },
     {
@@ -68,8 +68,8 @@ export const routes = [
         method: async (req : Request, res : Response) => {
             res.json(response(
                 200,
-                {search: req.params.query.replace('+', ' ')},
-                await findBooks(req.params.query)
+                {search: req.params.query!.replace('+', ' ')},
+                await findBooks(req.params.query!)
             ))
         }
     }
