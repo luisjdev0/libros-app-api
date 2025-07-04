@@ -1,6 +1,7 @@
 {
   "name": "libros-app-api",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "bun --watch app.ts",
     "build": "bun build app.ts --target=node --outdir dist --minify"

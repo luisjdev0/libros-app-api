@@ -1,9 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import { resolve } from 'path'
-dotenv.config({
-    path: resolve(__dirname, '.env')
-})
+dotenv.config()
 
 import type { Request, Response } from 'express'
 import { createServer } from 'http'
@@ -12,7 +9,6 @@ import { AuthAPIMiddleware } from './modules/helpers'
 import { routes as V1 } from './V1/endpoints'
 import { routes as V2 } from './V2/endpoints'
 import { routes as V3 } from './V3/endpoints'
-
 
 const cors = require('cors')
 

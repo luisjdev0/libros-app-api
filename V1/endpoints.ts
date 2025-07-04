@@ -1,7 +1,6 @@
 import type { Request, Response } from "express"
 import { query, response, parseBook } from '../modules/helpers'
 
-
 const getBooksByPage = async (page: number | string) => {
     return parseBook(await query('SELECT * FROM books WHERE pageID = ? ORDER BY creation_date DESC', [page]))
 }

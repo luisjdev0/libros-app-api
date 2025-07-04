@@ -3,9 +3,9 @@ import type { Request, Response } from 'express'
 import { parseBookV3, response } from '../modules/helpers'
 import { Book } from '../modules/book'
 
-const { MONGODB_CONNECTION_STRING } = process.env
-
 const createConnection = async () => {
+    const { MONGODB_CONNECTION_STRING } = process.env
+    console.log(MONGODB_CONNECTION_STRING)
     const db = await mongoose.connect(MONGODB_CONNECTION_STRING!, {
         dbName: 'books-spanish',
     })
@@ -48,13 +48,12 @@ const findBooks = async (params: string) => {
     )
 }
 
-
 const getNewBooks = async () => {
     const db = await createConnection()
     const data = await db.find({
         createdAt: { $gte: new Date(new Date().setHours(0, 0, 0, 0)), $lt: new Date(new Date().setHours(23, 59, 59, 999)) }
     })
-    return data
+    return parseBookV3(data)
 }
 
 const getBooksByAuthor = async (author: string) => {
