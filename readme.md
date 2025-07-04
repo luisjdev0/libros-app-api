@@ -30,42 +30,42 @@ A continuación, se listarán los endpoints disponibles en el API:
 
 Obtiene información referente a los libros, autores y géneros cargados
 ```http
-GET /v2/stats
+GET /v3/stats
 ```
 
 Obtiene los libros agregados el día actual:
 ```http
-GET /v2/today
+GET /v3/today
 ```
 
 Obtener los libros por página:
 ```http
-GET /v2/page/<PAGE>
+GET /v3/page/<PAGE>
 ```
 
 Obtener todos los autores registrados o buscar uno:
 ```http
-GET /v2/tags/
-GET /v2/tags/<TAG>
+GET /v3/tags/
+GET /v3/tags/<TAG>
 ```
 
 Obtener los géneros de los libros registrados o buscar uno:
 ```http
-GET /v2/genres/
-GET /v2/authors/<AUTHOR>
+GET /v3/genres/
+GET /v3/authors/<AUTHOR>
 ```
 
 Búsquedas:
     
 - Por coincidencia:
     ```http
-    GET /v2/search/<PARAM>
+    GET /v3/search/<PARAM>
     ```
 - Por autor:
     ```http
-    GET /v2/search/author/<AUTHOR>
+    GET /v3/search/author/<AUTHOR>
     ```
 - Por Categoría:
     ```http
-    GET /v2/search/genres/<GENRE>
+    GET /v3/search/genres/<GENRE>
     ```

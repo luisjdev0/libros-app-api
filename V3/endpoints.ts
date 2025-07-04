@@ -55,7 +55,6 @@ const getNewBooks = async () => {
         createdAt: { $gte: new Date(new Date().setHours(0, 0, 0, 0)), $lt: new Date(new Date().setHours(23, 59, 59, 999)) }
     })
     return data
-    //('SELECT * FROM books WHERE DATE(CREATION_DATE) = CURRENT_DATE')
 }
 
 const getBooksByAuthor = async (author: string) => {
